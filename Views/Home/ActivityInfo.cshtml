@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity</title>
+     <link rel="stylesheet" href="~/css/ActivityInfo.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="jumbotron">
+        <h1>Dojo Activity Center</h1>
+        <a href="/Dashboard" class="btn btn-outline-primary">Home</a>
+        <a href="/logout" class="btn btn-outline-danger">Log Out</a>
+    </div>
+
+    <div class="jumbotron">
+        <h2>@ViewBag.ThisActivity.Title</h2>
+
+        <h3>Event Coordinator: </h3>
+        <h5>@ViewBag.EventCoordinator.FirstName</h5>
+        <h3>Description:</h3>
+        <p>@ViewBag.ThisActivity.Description</p>
+        <h3>Participants:</h3>
+        <ul class="list-group">
+            @foreach (var p in ViewBag.AllParticipants)
+            {
+                <li class="list-group-item">@p.User.FirstName</li>
+            }
+        </ul><br>
+        @if (ViewBag.ThisActivity.PlannerId == ViewBag.ThisUser.UserId)
+        {
+            <a class="btn btn-outline-danger" href="/delete/@ViewBag.ThisActivity.ActivityId">Delete</a>
+        }
+        else
+        {
+            int temp = 0;
+            @foreach (var a in ViewBag.AllParticipants)
+            {
+                if (a.User.UserId == ViewBag.ThisUser.UserId)
+                {
+                    temp = a.ParticipationId;
+                }
+            }
+            @if (temp == 0)
+            {
+                <a class="btn btn-success" href="/join/@ViewBag.ThisActivity.ActivityId">Join</a>
+            }
+            else
+            {
+                <a class="btn btn-danger" href="/leave/@temp">Leave</a>
+            }
+        }
+    </div>
+
+    
+</body>
+</html>

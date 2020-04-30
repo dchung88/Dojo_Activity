@@ -1,0 +1,82 @@
+﻿@model IndexViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register/Login</title>
+    <link rel="stylesheet" href="~/css/Index.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="jumbotron">
+        <h1>Welcome to the Dojo Activity Center</h1>
+    </div>
+
+    <div class="jumbotron">
+        <div class="register">
+            <form asp-action="Register" asp-controller="Home" method="POST">
+                <h2>Register</h2>
+
+                <div class="form-group">
+                    <span asp-validation-for="RegisteredUser.FirstName"></span>
+                    <label asp-for="RegisteredUser.FirstName"></label>
+                    <input type="text" asp-for="RegisteredUser.FirstName"><br>
+                </div>
+
+                <div class="form-group">
+                    <span asp-validation-for="RegisteredUser.LastName"></span>
+                    <label asp-for="RegisteredUser.LastName"></label>
+                    <input type="text" asp-for="RegisteredUser.LastName"><br>
+                </div>
+
+                <div class="form-group">
+                    <span asp-validation-for="RegisteredUser.Email"></span>
+                    <label asp-for="RegisteredUser.Email"></label>
+                    <input type="text" asp-for="RegisteredUser.Email"><br>
+                </div>
+
+
+                <div class="form-group">
+                    <span asp-validation-for="RegisteredUser.Password"></span>
+                    <label asp-for="RegisteredUser.Password"></label>
+                    <input type="password" asp-for="RegisteredUser.Password"><br>
+                </div>
+
+                <div class="form-group">
+                    <span asp-validation-for="RegisteredUser.Confirm"></span>
+                    <label asp-for="RegisteredUser.Confirm"></label>
+                    <input type="password" asp-for="RegisteredUser.Confirm"><br>
+                </div>
+
+                <input class="btn btn-primary" type="submit" value="Register">
+
+            </form>
+        </div>
+
+        <div class="login">
+            <form asp-action="CheckUser" asp-controller="Home" method="POST">
+                <h3>Login</h3>
+
+                <div class="form-group">
+                    <span asp-validation-for="LoggedUser.Email"></span>
+                    <label asp-for="LoggedUser.Email"></label>
+                    <input type="text" asp-for="LoggedUser.Email"><br>
+                </div>
+
+                <div class="form-group">
+                    <span asp-validation-for="LoggedUser.Password"></span>
+                    <label asp-for="LoggedUser.Password"></label>
+                    <input type="password" asp-for="LoggedUser.Password"><br>
+                </div>
+
+                <input class="btn btn-primary" type="submit" value="Log In">
+
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

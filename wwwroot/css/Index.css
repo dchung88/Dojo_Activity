@@ -1,0 +1,16 @@
+.register{
+    display: inline-block;
+    text-align: center;
+    padding-left: 200px;
+}
+
+.login{
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 200px;
+    
+}
+
+h1{
+    text-align: center;
+}

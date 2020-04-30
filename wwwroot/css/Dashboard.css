@@ -1,0 +1,12 @@
+h1{
+    text-align: center;
+}
+
+.nav{
+    display: inline-block;
+}
+
+h2{
+    padding-left: 50px;
+    padding-right: 300px;
+}

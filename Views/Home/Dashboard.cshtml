@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo Activity Center</title>
+    <link rel="stylesheet" href="~/css/Dashboard.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="jumbotron">
+        <h1>Dojo Activity Center</h1>
+
+        <div class="nav">
+            <h2>Welcome, @ViewBag.ThisUser.FirstName!</h2>
+            <a href="/logout" class="btn btn-outline-danger">Log Out</a>
+        </div>
+    </div>
+
+<table class="table">
+    <thead class="thead-dark">
+        <th scope="col">Activity</th>
+        <th scope="col">Date and Time</th>
+        <th scope="col">Duration</th>
+        <th scope="col">Event Coordinator</th>
+        <th scope="col">Number of Participants</th>
+        <th scope="col">Actions</th>
+    </thead>
+    <tbody>
+        @if (ViewBag.AllActivities != null)
+        {
+            @foreach (var a in ViewBag.AllActivities)
+            {
+                <tr>
+                    <td><a href="/activity/@a.ActivityId">@a.Title</a></td>
+                    <td>@a.ActivityDate.ToString("M/d") @@ @a.ActivityDate.ToString("h:mmtt")</td>
+                    <td>@a.ActDuration @a.ActUnit</td>
+                    @if (ViewBag.Creators != null)
+                    {
+                        @foreach (var c in ViewBag.Creators)
+                        {
+                            @if (a.PlannerId == c.UserId)
+                            {
+                                <td>@c.FirstName</td>
+                            }
+                        }
+                    }
+                    <td>@a.Participants.Count</td>
+                    @if (a.PlannerId == ViewBag.ThisUser.UserId)
+                    {
+                        <td><a href="/delete/@a.ActivityId">Delete</a></td>
+                    }
+                    else
+                    {
+                        int temp = 0;
+                        @foreach (var u in a.Participants)
+                        {
+                            if (u.User.UserId == ViewBag.ThisUser.UserId)
+                            {
+                                temp = u.ParticipationId;
+                            }
+                        }
+                        @if (temp == 0)
+                        {
+                            <td><a href="/join/@a.ActivityId">Join</a></td>
+                        }
+                        else
+                        {
+                            <td><a href="/leave/@temp">Leave</a></td>
+                        }
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<a href="/New" class="btn btn-outline-success">Add New Activity</a>
+    
+</body>
+</html>
